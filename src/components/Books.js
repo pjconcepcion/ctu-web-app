@@ -77,9 +77,13 @@ export default class Books extends Component{
     deleteBook = (id) => {
         fetch('http://localhost:5000/book/'+ id + '/delete',{method: 'PUT'})
             .then(response => {
-                this.setState((state) => ({
-                    books: state.books.filter(book => book.id != id)
-                }));
+                if(response.status==200){
+                    this.setState((state) => ({
+                        books: state.books.filter(book => book.id != id)
+                    }));
+                }else{
+                    alert('There are still unreturn books');
+                }
             })
             .catch(err => console.log(err));
     }
